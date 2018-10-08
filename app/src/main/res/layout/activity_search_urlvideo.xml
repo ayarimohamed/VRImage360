@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/Beige"
+    tools:context=".SearchURLVideo">
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:orientation="vertical"
+        android:padding="20dp"
+
+        tools:layout_editor_absoluteX="0dp"
+        tools:layout_editor_absoluteY="123dp"
+        tools:ignore="MissingConstraints">
+
+        <EditText
+            android:id="@+id/searchVidEdt"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@color/Black"
+            android:layout_marginBottom="20dp"
+            android:text="https://goo.gl/n4HsR2"/>
+
+        <Button
+            android:id="@+id/btnVidSearch"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="50dp"
+
+            android:text="View"
+            android:background="@color/Lavender"
+
+
+            />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <com.google.vr.sdk.widgets.video.VrVideoView
+                android:id="@+id/video_view1"
+                android:layout_width="match_parent"
+                android:scrollbars="none"
+                android:layout_height="250dip"/>
+
+            <ProgressBar
+                android:layout_width="200dp"
+                android:layout_height="200dp"
+                android:id="@+id/progrss"
+                android:visibility="gone"
+                android:layout_centerInParent="true"/>
+
+        </RelativeLayout>
+
+    </LinearLayout>
+
+</android.support.constraint.ConstraintLayout>
