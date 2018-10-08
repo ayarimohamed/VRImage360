@@ -1,31 +1,41 @@
-Getting Started with VR View for Android Codelab
-================================================
+# VRImage360 Internship work UMons 2018 https://bit.ly/2RwpZPN
+This project is based on another project I found in github.I tried to add some features like opening and viewing 360 images from the mediastore and viewing these images from the URL link in case there is an internet connection.
 
-This is the companion project to the VR View for Android codelab.
+View the image from the mediaStore:
 
-Please see https://codelabs.developers.google.com/ for the codelab text.
+At the level of the class ImageFragment.java just add a listener to the button "btnGallery" in which we build an intent that takes us directly to the mediastore to choose the image we want to display in the panoramaView.
+Do not forget to add the image type for the photoPickerIntent.
 
-Support
--------
- If you've found an error in this sample, please file an issue:
-https://github.com/googlecodelabs/vrview-android/issues
+        btnGallery.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View arg0) {
+                Intent photoPickerIntent = new Intent(Intent.ACTION_PICK,android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+                photoPickerIntent.setType("image/*");
+                startActivityForResult(photoPickerIntent, RESULT_LOAD_GALLERY);
+            }
+        });
+        
+        
+View the image from a URL link:
 
-Patches are encouraged, and may be submitted by forking this project and
-submitting a pull request through GitHub.
+At the level of the class ImageFragment.java just add a listener to the button "btnURL" in which we build an intent that takes us directly to another activity "searchURL" which contains an editText, a button and a vrpanoramaView.
+The user finds a Url link by default, just click on the "view" button to display the corresponding image.
+Of course, permission to access the internet is mandatory or an exception will be thrown and an error message appears as a Toast.
 
-License
--------
-Copyright 2016 Google, Inc.
-Licensed to the Apache Software Foundation (ASF) under one or more contributor
-license agreements.  See the NOTICE file distributed with this work for
-additional information regarding copyright ownership.  The ASF licenses this
-file to you under the Apache License, Version 2.0 (the "License"); you may not
-use this file except in compliance with the License.  You may obtain a copy of
-the License at
-  http://www.apache.org/licenses/LICENSE-2.0
-Unless required by applicable law or agreed to in writing, software
-distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
-WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  See the
-License for the specific language governing permissions and limitations under
-the License.
+• Recover the contents of the edittext
 
+        final String chaine = etUrl.getText().toString();
+        Log.v("Essai",chaine);
+        
+ • The treatment to be done will be done at Asynctask.
+So in the doInBackground method just grab the URL of the image and the inputStream of the image: 
+
+        URL imageURL = new URL(chaine);
+                        InputStream imageInputStream = imageURL.openStream();
+                        bitmap = BitmapFactory.decodeStream(imageInputStream);
+
+• At the onPostExecute method, just add the bitmap to our panoWidgetView.
+
+        VrPanoramaView.Options viewOptions = new VrPanoramaView.Options();
+                        viewOptions.inputType = VrPanoramaView.Options.TYPE_MONO;
+                        panoWidgetView1.loadImageFromBitmap(bitmap, viewOptions);
